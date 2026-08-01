@@ -10,11 +10,13 @@ export default function DownloadModal({ isOpen, onClose, movie }) {
   if (!movie) return null;
 
   const downloadInfo = movie.download || {
-    resolution: '1080p HQ PreDVD',
-    size: '5.5 GB',
-    format: 'MKV [Tam + Tel + Hin + Eng]',
+    resolution: '1080p Web HD',
+    size: '950 MB',
+    format: 'MP4 (Web Optimized)',
     bitrate: 'High Speed Multi-Audio',
   };
+
+  const fileTargetUrl = movie.download?.url || movie.videoUrl || '/compressed/spider-man-brand-new-day.mp4';
 
   const handleDirectDownload = () => {
     startDownload(movie);
@@ -46,7 +48,7 @@ export default function DownloadModal({ isOpen, onClose, movie }) {
               </span>
               <span className="px-2.5 py-0.5 text-[11px] font-bold bg-green-500/20 text-green-400 rounded border border-green-500/30 flex items-center gap-1">
                 <ShieldCheck className="w-3 h-3" />
-                <span>Direct Device Download</span>
+                <span>Fast Device Download</span>
               </span>
             </div>
           </div>
@@ -59,7 +61,7 @@ export default function DownloadModal({ isOpen, onClose, movie }) {
             <span className="font-bold text-white">{downloadInfo.format}</span>
           </div>
           <div className="flex items-center justify-between text-xs text-gray-300">
-            <span className="font-semibold text-gray-400">Actual File Size:</span>
+            <span className="font-semibold text-gray-400">Compressed File Size:</span>
             <span className="font-extrabold text-[#E50914] text-sm">{downloadInfo.size}</span>
           </div>
           <div className="flex items-center justify-between text-xs text-gray-300">
@@ -70,8 +72,8 @@ export default function DownloadModal({ isOpen, onClose, movie }) {
 
         {/* Direct Device Download Anchor Button */}
         <a
-          href={movie.download?.url || movie.videoUrl || '/movies/spider-man-brand-new-day.mkv'}
-          download="spider-man-brand-new-day.mkv"
+          href={fileTargetUrl}
+          download="spider-man-brand-new-day.mp4"
           onClick={handleDirectDownload}
           className="w-full flex items-center justify-center gap-3 py-4 bg-[#E50914] hover:bg-[#FF1E27] text-white font-extrabold text-lg rounded-xl transition-all shadow-xl glow-red hover:scale-[1.01]"
         >
@@ -83,7 +85,7 @@ export default function DownloadModal({ isOpen, onClose, movie }) {
           ) : (
             <>
               <Download className="w-6 h-6" />
-              <span>Download Direct to Device ({downloadInfo.size})</span>
+              <span>Download Direct ({downloadInfo.size})</span>
             </>
           )}
         </a>

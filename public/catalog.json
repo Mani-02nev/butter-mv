@@ -13,7 +13,7 @@
     "imdbRating": 9.8,
     "voteCount": "620.4K",
     "ageRating": "13+",
-    "quality": "1080p HQ PreDVD",
+    "quality": "1080p Web HD",
     "audioLanguages": ["Tamil", "Telugu", "Hindi", "English [Original]"],
     "subtitles": ["English", "Tamil", "Telugu", "Hindi"],
     "director": "Destin Daniel Cretton",
@@ -21,16 +21,16 @@
     "posterUrl": "/posters/spider-man-brand-new-day.png",
     "backdropUrl": "/backdrops/spider-man-brand-new-day.svg",
     "trailerUrl": "https://www.youtube.com/embed/O4tsI1CpNPw?autoplay=1",
-    "videoUrl": "/movies/spider-man-brand-new-day.mkv",
+    "videoUrl": "/compressed/spider-man-brand-new-day.mp4",
     "isTrending": true,
     "isFeatured": true,
     "isLatest": true,
     "download": {
-      "resolution": "1080p HQ PreDVD",
-      "size": "5.5 GB",
-      "format": "MKV [Tam + Tel + Hin + Eng]",
+      "resolution": "1080p Web HD",
+      "size": "950 MB",
+      "format": "MP4 (Web Optimized)",
       "bitrate": "High Speed Multi-Audio",
-      "url": "/movies/spider-man-brand-new-day.mkv"
+      "url": "/compressed/spider-man-brand-new-day.mp4"
     }
   }
 ]

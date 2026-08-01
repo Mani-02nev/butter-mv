@@ -16,7 +16,7 @@ export default function VideoPlayer({ movie }) {
   const navigate = useNavigate();
 
   const [srcUrl, setSrcUrl] = useState(
-    movie?.videoUrl || '/movies/spider-man-brand-new-day.mkv'
+    movie?.videoUrl || '/compressed/spider-man-brand-new-day.mp4'
   );
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -24,8 +24,9 @@ export default function VideoPlayer({ movie }) {
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showControls, setShowControls] = useState(true);
-  const [centerAnim, setCenterAnim] = useState(null); // 'play' | 'pause'
+  const [showSpeedMenu, setShowSpeedMenu] = useState(false);
 
   const controlsTimeoutRef = useRef(null);
 
@@ -80,7 +81,7 @@ export default function VideoPlayer({ movie }) {
       if (videoRef.current && !videoRef.current.paused) {
         setShowControls(false);
       }
-    }, 3000);
+    }, 3500);
   };
 
   // Center Screen Click to Toggle Play/Pause cleanly
@@ -89,14 +90,11 @@ export default function VideoPlayer({ movie }) {
     if (videoRef.current.paused) {
       videoRef.current.play().catch(() => {});
       setIsPlaying(true);
-      setCenterAnim('play');
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
-      setCenterAnim('pause');
     }
     handleUserActivity();
-    setTimeout(() => setCenterAnim(null), 800);
   };
 
   const handleTimeUpdate = () => {
@@ -127,6 +125,14 @@ export default function VideoPlayer({ movie }) {
     if (!videoRef.current) return;
     videoRef.current.muted = !isMuted;
     setIsMuted(!isMuted);
+  };
+
+  const changeSpeed = (speed) => {
+    setPlaybackSpeed(speed);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = speed;
+    }
+    setShowSpeedMenu(false);
   };
 
   const toggleFullscreen = () => {
@@ -186,21 +192,8 @@ export default function VideoPlayer({ movie }) {
         className="w-full h-full object-contain bg-black cursor-pointer"
       />
 
-      {/* Center Screen Tap Animation Feedback */}
-      {centerAnim && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#E50914]/90 text-white flex items-center justify-center shadow-2xl glow-red animate-ping-once">
-            {centerAnim === 'play' ? (
-              <Play className="w-10 h-10 sm:w-12 sm:h-12 fill-white ml-1" />
-            ) : (
-              <Pause className="w-10 h-10 sm:w-12 sm:h-12 fill-white" />
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Static Center Play Icon when Paused */}
-      {!isPlaying && !centerAnim && (
+      {!isPlaying && (
         <div
           onClick={handleCenterClick}
           className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer z-10"
@@ -233,7 +226,7 @@ export default function VideoPlayer({ movie }) {
         </div>
 
         <span className="px-2.5 py-1 text-xs font-bold bg-[#E50914] text-white rounded-md glow-red">
-          4K
+          1080p HD
         </span>
       </div>
 
