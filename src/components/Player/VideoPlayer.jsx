@@ -8,7 +8,6 @@ import {
   Minimize,
   ArrowLeft,
   ListVideo,
-  ChevronRight,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,16 +16,14 @@ export default function VideoPlayer({ movie }) {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  const parts = movie?.parts || [
-    { part: 1, title: 'Part 1', url: '/compressed/part00.mp4' },
-    { part: 2, title: 'Part 2', url: '/compressed/part01.mp4' },
-    { part: 3, title: 'Part 3', url: '/compressed/part02.mp4' },
-    { part: 4, title: 'Part 4', url: '/compressed/part03.mp4' },
-    { part: 5, title: 'Part 5', url: '/compressed/part04.mp4' },
+  const parts = movie?.parts && movie.parts.length > 0 ? movie.parts : [
+    { part: 1, title: 'Part 1', url: '/compressed/part_0.mp4' },
+    { part: 2, title: 'Part 2', url: '/compressed/part_1.mp4' },
+    { part: 3, title: 'Part 3', url: '/compressed/part_2.mp4' },
   ];
 
   const [currentPartIndex, setCurrentPartIndex] = useState(0);
-  const [srcUrl, setSrcUrl] = useState(parts[0]?.url || '/compressed/part00.mp4');
+  const [srcUrl, setSrcUrl] = useState(parts[0]?.url || '/compressed/part_0.mp4');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -35,21 +32,35 @@ export default function VideoPlayer({ movie }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [showPartsMenu, setShowPartsMenu] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const controlsTimeoutRef = useRef(null);
 
-  // Update source when part changes
+  // Sync srcUrl when movie or parts change dynamically
+  useEffect(() => {
+    if (movie?.parts && movie.parts.length > 0) {
+      const activePart = movie.parts[currentPartIndex] || movie.parts[0];
+      setSrcUrl(activePart.url);
+      setVideoError(false);
+    } else if (movie?.videoUrl) {
+      setSrcUrl(movie.videoUrl);
+      setVideoError(false);
+    }
+  }, [movie, currentPartIndex]);
+
+  // Switch part handler
   const switchPart = (index) => {
     if (index >= 0 && index < parts.length) {
       setCurrentPartIndex(index);
       setSrcUrl(parts[index].url);
+      setVideoError(false);
       setIsPlaying(true);
       setShowPartsMenu(false);
       setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.play().catch(() => {});
         }
-      }, 200);
+      }, 150);
     }
   };
 
@@ -108,16 +119,20 @@ export default function VideoPlayer({ movie }) {
     }, 3500);
   };
 
-  // Center Screen Click to Toggle Play/Pause cleanly
-  const handleCenterClick = () => {
+  const togglePlay = () => {
     if (!videoRef.current) return;
     if (videoRef.current.paused) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch((err) => console.log('Play error:', err));
       setIsPlaying(true);
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
     }
+  };
+
+  // Center Screen Click to Toggle Play/Pause cleanly
+  const handleCenterClick = () => {
+    togglePlay();
     handleUserActivity();
   };
 
@@ -205,7 +220,7 @@ export default function VideoPlayer({ movie }) {
         isFullscreen ? 'fixed inset-0 z-50 rounded-none bg-black' : 'aspect-video rounded-2xl sm:rounded-3xl'
       } bg-black overflow-hidden shadow-2xl border border-white/10 group select-none transition-all`}
     >
-      {/* Video Element - Tap Center to Play/Pause */}
+      {/* Video Element */}
       <video
         ref={videoRef}
         src={srcUrl}
@@ -213,12 +228,26 @@ export default function VideoPlayer({ movie }) {
         onLoadedMetadata={handleTimeUpdate}
         onClick={handleCenterClick}
         onEnded={handleVideoEnded}
+        onError={() => setVideoError(true)}
         playsInline
         className="w-full h-full object-contain bg-black cursor-pointer"
       />
 
+      {/* Video Error Overlay */}
+      {videoError && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 p-6 text-center z-20 space-y-3">
+          <div className="w-12 h-12 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center font-bold">
+            !
+          </div>
+          <h4 className="text-lg font-bold text-white">Video Stream Syncing</h4>
+          <p className="text-xs text-gray-400 max-w-sm">
+            Part {currentPartIndex + 1} is syncing with GitHub Vercel CDN. Try switching parts or re-downloading.
+          </p>
+        </div>
+      )}
+
       {/* Static Center Play Icon when Paused */}
-      {!isPlaying && (
+      {!isPlaying && !videoError && (
         <div
           onClick={handleCenterClick}
           className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer z-10"
