@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Zap, Film, Sparkles, Code, Heart, ChevronDown, ChevronUp } from 'lucide-react';
+import { Play, Shield, Zap, Film, Sparkles, Code, Heart, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function AboutPage() {
   const [openFaq, setOpenFaq] = useState(null);
@@ -35,23 +35,19 @@ export default function AboutPage() {
           About <span className="text-[#E50914]">Butter MV</span>
         </h1>
         <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          Butter MV is an MNC-grade, dark-themed OTT movie streaming and instant download web platform engineered for cinema purists.
+          Butter MV is an ultra-premium, dark-themed OTT movie streaming and instant download web platform engineered for cinema purists.
         </p>
       </div>
 
-      {/* MNC Butterfly Developer & Founder Profile Card */}
+      {/* Developer & Founder Profile Card */}
       <div className="relative rounded-3xl overflow-hidden glass-panel border border-[#E50914]/40 p-6 sm:p-10 shadow-2xl bg-gradient-to-r from-[#050505] via-[#12121c] to-[#050505]">
         <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#E50914]/20 via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-          {/* Butterfly Avatar Badge */}
+          {/* Original Red Play Logo Avatar Badge */}
           <div className="relative shrink-0">
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-[#FF1E27] via-[#E50914] to-[#99000D] p-2 shadow-2xl glow-red border-2 border-white/20">
-              <img
-                src="/favicon.svg"
-                alt="Butter MV Butterfly Logo"
-                className="w-full h-full object-contain rounded-xl"
-              />
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-[#FF1E27] to-[#E50914] flex items-center justify-center shadow-2xl glow-red border-2 border-white/20">
+              <Play className="w-16 h-16 fill-white text-white ml-1" />
             </div>
             <span className="absolute -bottom-2 -right-2 px-3 py-1 bg-[#E50914] text-white text-[10px] font-black uppercase rounded-lg shadow-lg">
               FOUNDER

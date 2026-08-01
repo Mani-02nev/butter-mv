@@ -1,28 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, FileText, Mail, Heart, Globe, Share2, Tv, MessageSquare } from 'lucide-react';
+import { Play, Shield, FileText, Mail, Heart, Globe, Share2, Tv, MessageSquare } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-white/10 bg-[#050505] text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
-          {/* Brand Col with Butterfly MNC Logo */}
+          {/* Brand Col with Original Red Play Logo */}
           <div className="md:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FF1E27] via-[#E50914] to-[#99000D] p-0.5 glow-red shadow-xl">
-                <img
-                  src="/favicon.svg"
-                  alt="Butter MV Butterfly Logo"
-                  className="w-full h-full object-contain rounded-2xl"
-                />
+            <Link to="/" className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF1E27] to-[#E50914] flex items-center justify-center glow-red shadow-xl">
+                <Play className="w-4 h-4 fill-white text-white ml-0.5" />
               </div>
               <span className="text-2xl font-black font-heading tracking-wider text-white">
                 BUTTER<span className="text-[#E50914]">MV</span>
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-              Butter MV is an ultra-premium, MNC-grade OTT movie streaming and instant download web platform designed for cinema purists worldwide. Stream in crisp 1080p HD or download multi-part files for offline viewing.
+              Butter MV is an ultra-premium, dark-themed streaming and instant movie download web platform designed for cinema lovers worldwide. Stream in crisp 1080p HD or download multi-part files for offline viewing.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a href="#" className="p-2.5 bg-white/5 hover:bg-[#E50914] text-gray-300 hover:text-white rounded-full transition-all border border-white/10" title="Global Network">

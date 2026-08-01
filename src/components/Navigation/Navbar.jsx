@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, Heart, Download, Menu, X, Film, Sparkles, Home, Grid } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Play, Search, Heart, Download, Menu, X, Film, Sparkles, Home, Grid } from 'lucide-react';
 import { useFavorites } from '../../context/FavoritesContext';
 import { useDownloads } from '../../context/DownloadContext';
 
@@ -8,7 +8,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const { favoritesCount } = useFavorites();
   const { activeCount } = useDownloads();
 
@@ -39,23 +38,14 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo with MNC Butterfly */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FF1E27] via-[#E50914] to-[#99000D] p-0.5 shadow-xl glow-red group-hover:scale-105 transition-transform">
-              <img
-                src="/favicon.svg"
-                alt="Butter MV Butterfly Logo"
-                className="w-full h-full object-contain rounded-2xl"
-              />
+          {/* Brand Logo with Original Red Play Icon */}
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF1E27] to-[#E50914] flex items-center justify-center glow-red group-hover:scale-105 transition-transform shadow-xl">
+              <Play className="w-4 h-4 fill-white text-white ml-0.5" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-black font-heading tracking-wider text-white leading-none">
-                BUTTER<span className="text-[#E50914]">MV</span>
-              </span>
-              <span className="text-[9px] font-bold text-gray-400 tracking-widest uppercase">
-                CINEMA OTT
-              </span>
-            </div>
+            <span className="text-2xl font-black font-heading tracking-wider text-white">
+              BUTTER<span className="text-[#E50914]">MV</span>
+            </span>
           </Link>
 
           {/* Desktop Nav Links */}
