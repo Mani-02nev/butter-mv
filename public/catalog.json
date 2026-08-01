@@ -1,0 +1,36 @@
+[
+  {
+    "id": "spider-man-brand-new-day",
+    "title": "Spider-Man: Brand New Day",
+    "originalTitle": "Spider-Man Brand New Day (2026) HQ PreDVD",
+    "tagline": "Exclusively in movie theatres July 31, 2026",
+    "synopsis": "Peter Parker embarks on an unwritten chapter following the cosmic spell that erased his identity from the minds of everyone he loved. Operating as a lonely street-level vigilante in New York City, Spider-Man faces dangerous new crime syndicates, sinister villains, and unexpected allies while struggling to build a life from scratch.",
+    "year": 2026,
+    "releaseDate": "2026-07-31",
+    "runtime": 148,
+    "formattedRuntime": "2h 28m",
+    "genres": ["Action", "Adventure", "Sci-Fi", "Superhero"],
+    "imdbRating": 9.8,
+    "voteCount": "620.4K",
+    "ageRating": "13+",
+    "quality": "1080p HQ PreDVD",
+    "audioLanguages": ["Tamil", "Telugu", "Hindi", "English [Original]"],
+    "subtitles": ["English", "Tamil", "Telugu", "Hindi"],
+    "director": "Destin Daniel Cretton",
+    "cast": ["Tom Holland", "Zendaya", "Sadie Sink", "Jon Bernthal", "Mark Ruffalo", "Michael Keaton"],
+    "posterUrl": "/posters/spider-man-brand-new-day.png",
+    "backdropUrl": "/backdrops/spider-man-brand-new-day.svg",
+    "trailerUrl": "https://www.youtube.com/embed/O4tsI1CpNPw?autoplay=1",
+    "videoUrl": "/movies/spider-man-brand-new-day.mkv",
+    "isTrending": true,
+    "isFeatured": true,
+    "isLatest": true,
+    "download": {
+      "resolution": "1080p HQ PreDVD",
+      "size": "5.5 GB",
+      "format": "MKV [Tam + Tel + Hin + Eng]",
+      "bitrate": "High Speed Multi-Audio",
+      "url": "/movies/spider-man-brand-new-day.mkv"
+    }
+  }
+]
