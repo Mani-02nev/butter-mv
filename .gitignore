@@ -12,8 +12,9 @@ dist
 dist-ssr
 *.local
 
-# Ignore heavy raw movie uploads (>100MB)
+# Ignore heavy media video files for GitHub compliance
 public/movies/
+public/compressed/part_*.mp4
 
 # Editor directories and files
 .vscode/*
