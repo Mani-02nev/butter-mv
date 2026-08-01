@@ -12,9 +12,8 @@ dist
 dist-ssr
 *.local
 
-# Heavy media files (>100MB ignored for GitHub limit)
+# Heavy uncompressed raw media files (>100MB ignored for GitHub limit)
 public/movies/*.mkv
-public/movies/*.mp4
 public/movies/*.avi
 
 # Editor directories and files
