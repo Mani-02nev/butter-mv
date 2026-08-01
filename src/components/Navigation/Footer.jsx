@@ -1,24 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Shield, FileText, Mail, Heart, Globe, Share2, Tv, MessageSquare } from 'lucide-react';
+import { Shield, FileText, Mail, Heart, Globe, Share2, Tv, MessageSquare } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-white/10 bg-[#050505] text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
-          {/* Brand Col */}
+          {/* Brand Col with Butterfly MNC Logo */}
           <div className="md:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF1E27] to-[#E50914] flex items-center justify-center glow-red">
-                <Play className="w-4 h-4 fill-white text-white ml-0.5" />
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FF1E27] via-[#E50914] to-[#99000D] p-0.5 glow-red shadow-xl">
+                <img
+                  src="/favicon.svg"
+                  alt="Butter MV Butterfly Logo"
+                  className="w-full h-full object-contain rounded-2xl"
+                />
               </div>
               <span className="text-2xl font-black font-heading tracking-wider text-white">
                 BUTTER<span className="text-[#E50914]">MV</span>
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-              Butter MV is an ultra-premium, dark-themed streaming and instant movie download web platform designed for cinema lovers worldwide. Stream in crisp 4K UHD or download for offline viewing.
+              Butter MV is an ultra-premium, MNC-grade OTT movie streaming and instant download web platform designed for cinema purists worldwide. Stream in crisp 1080p HD or download multi-part files for offline viewing.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a href="#" className="p-2.5 bg-white/5 hover:bg-[#E50914] text-gray-300 hover:text-white rounded-full transition-all border border-white/10" title="Global Network">
@@ -53,9 +57,9 @@ export default function Footer() {
             <h4 className="text-white font-bold font-heading mb-4 text-base tracking-wide">Platform Features</h4>
             <ul className="space-y-2.5 text-sm">
               <li><Link to="/downloads" className="hover:text-white transition-colors">Offline Downloads</Link></li>
-              <li><span className="text-gray-500">4K Ultra HD Playback</span></li>
+              <li><span className="text-gray-500">1080p HD Multi-Part Playback</span></li>
               <li><span className="text-gray-500">Multi-Audio Subtitles</span></li>
-              <li><span className="text-gray-500">Fast CDN Mirrors</span></li>
+              <li><span className="text-gray-500">GitHub Compliant Mirroring</span></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About Butter MV</Link></li>
             </ul>
           </div>

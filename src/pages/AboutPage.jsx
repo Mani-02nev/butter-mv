@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Shield, Zap, Film, Cpu, ChevronDown, ChevronUp, Sparkles, Code, Heart, User, ExternalLink, Globe } from 'lucide-react';
+import { Shield, Zap, Film, Sparkles, Code, Heart, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function AboutPage() {
   const [openFaq, setOpenFaq] = useState(null);
@@ -11,11 +11,11 @@ export default function AboutPage() {
     },
     {
       q: 'Can I download movies for offline viewing?',
-      a: 'Yes! Butter MV features a direct device download system supporting 4K UHD and 1080p HQ PreDVD direct downloads with ultra-fast speed CDN mirrors.',
+      a: 'Yes! Butter MV features a direct device download system supporting 1080p Full HD multi-part direct downloads with ultra-fast speed CDN mirrors.',
     },
     {
       q: 'What video quality formats are supported?',
-      a: 'Butter MV supports 4K Ultra HD and 1080p Full HD movies encoded in MKV and MP4 containers with multi-audio tracks (Tamil, Telugu, Hindi, English) and HDR10+ / Dolby Atmos.',
+      a: 'Butter MV supports 1080p Full HD movies encoded in MP4 containers with multi-audio tracks (Tamil, Telugu, Hindi, English).',
     },
     {
       q: 'Is Butter MV PWA-ready for mobile devices?',
@@ -35,19 +35,23 @@ export default function AboutPage() {
           About <span className="text-[#E50914]">Butter MV</span>
         </h1>
         <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          Butter MV is an ultra-premium, dark-themed OTT movie streaming and instant download web platform engineered for cinema purists.
+          Butter MV is an MNC-grade, dark-themed OTT movie streaming and instant download web platform engineered for cinema purists.
         </p>
       </div>
 
-      {/* Developer & Founder Profile Card */}
+      {/* MNC Butterfly Developer & Founder Profile Card */}
       <div className="relative rounded-3xl overflow-hidden glass-panel border border-[#E50914]/40 p-6 sm:p-10 shadow-2xl bg-gradient-to-r from-[#050505] via-[#12121c] to-[#050505]">
         <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#E50914]/20 via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-          {/* Avatar / Badge */}
+          {/* Butterfly Avatar Badge */}
           <div className="relative shrink-0">
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-[#FF1E27] to-[#E50914] flex items-center justify-center shadow-2xl glow-red border-2 border-white/20">
-              <User className="w-16 h-16 text-white" />
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-[#FF1E27] via-[#E50914] to-[#99000D] p-2 shadow-2xl glow-red border-2 border-white/20">
+              <img
+                src="/favicon.svg"
+                alt="Butter MV Butterfly Logo"
+                className="w-full h-full object-contain rounded-xl"
+              />
             </div>
             <span className="absolute -bottom-2 -right-2 px-3 py-1 bg-[#E50914] text-white text-[10px] font-black uppercase rounded-lg shadow-lg">
               FOUNDER
@@ -71,7 +75,7 @@ export default function AboutPage() {
             </div>
 
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans max-w-2xl">
-              "Crafted with passion for cinema enthusiasts worldwide. Butter MV was created to deliver an ultra-fast, dark-themed OTT experience with instant direct downloads, 4K video streams, and responsive mobile perfection."
+              "Crafted with passion for cinema enthusiasts worldwide. Butter MV was created to deliver an ultra-fast, dark-themed OTT experience with instant direct downloads, 1080p video streams, and responsive mobile perfection."
             </p>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
@@ -95,8 +99,8 @@ export default function AboutPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: 'Streaming Quality', val: '4K UHD' },
-          { label: 'Buffering Speed', val: '0.2s' },
+          { label: 'Streaming Quality', val: '1080p HD' },
+          { label: 'Buffering Speed', val: '0.1s' },
           { label: 'Download Speeds', val: '50 MB/s' },
           { label: 'Frame Rate', val: '60 FPS' },
         ].map((stat, i) => (
@@ -137,7 +141,7 @@ export default function AboutPage() {
           </div>
           <h3 className="text-xl font-bold font-heading text-white">Direct Device Downloads</h3>
           <p className="text-xs text-gray-400 leading-relaxed">
-            Direct browser native file downloads supporting 1080p and 4K MKV files with multi-audio.
+            Direct browser native file downloads supporting 1080p multi-part files with multi-audio.
           </p>
         </div>
       </div>
