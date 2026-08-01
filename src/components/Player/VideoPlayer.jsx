@@ -7,6 +7,8 @@ import {
   Maximize,
   Minimize,
   ArrowLeft,
+  ListVideo,
+  ChevronRight,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,20 +17,41 @@ export default function VideoPlayer({ movie }) {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
-  const [srcUrl, setSrcUrl] = useState(
-    movie?.videoUrl || '/compressed/spider-man-brand-new-day.mp4'
-  );
+  const parts = movie?.parts || [
+    { part: 1, title: 'Part 1', url: '/compressed/part00.mp4' },
+    { part: 2, title: 'Part 2', url: '/compressed/part01.mp4' },
+    { part: 3, title: 'Part 3', url: '/compressed/part02.mp4' },
+    { part: 4, title: 'Part 4', url: '/compressed/part03.mp4' },
+    { part: 5, title: 'Part 5', url: '/compressed/part04.mp4' },
+  ];
+
+  const [currentPartIndex, setCurrentPartIndex] = useState(0);
+  const [srcUrl, setSrcUrl] = useState(parts[0]?.url || '/compressed/part00.mp4');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showControls, setShowControls] = useState(true);
-  const [showSpeedMenu, setShowSpeedMenu] = useState(false);
+  const [showPartsMenu, setShowPartsMenu] = useState(false);
 
   const controlsTimeoutRef = useRef(null);
+
+  // Update source when part changes
+  const switchPart = (index) => {
+    if (index >= 0 && index < parts.length) {
+      setCurrentPartIndex(index);
+      setSrcUrl(parts[index].url);
+      setIsPlaying(true);
+      setShowPartsMenu(false);
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        }
+      }, 200);
+    }
+  };
 
   // Keyboard Shortcuts
   useEffect(() => {
@@ -80,6 +103,7 @@ export default function VideoPlayer({ movie }) {
     controlsTimeoutRef.current = setTimeout(() => {
       if (videoRef.current && !videoRef.current.paused) {
         setShowControls(false);
+        setShowPartsMenu(false);
       }
     }, 3500);
   };
@@ -127,14 +151,6 @@ export default function VideoPlayer({ movie }) {
     setIsMuted(!isMuted);
   };
 
-  const changeSpeed = (speed) => {
-    setPlaybackSpeed(speed);
-    if (videoRef.current) {
-      videoRef.current.playbackRate = speed;
-    }
-    setShowSpeedMenu(false);
-  };
-
   const toggleFullscreen = () => {
     const v = videoRef.current;
     const c = containerRef.current;
@@ -171,6 +187,15 @@ export default function VideoPlayer({ movie }) {
     return `${pad(mins)}:${pad(secs)}`;
   };
 
+  // Auto advance to next part when current segment ends
+  const handleVideoEnded = () => {
+    if (currentPartIndex + 1 < parts.length) {
+      switchPart(currentPartIndex + 1);
+    } else {
+      setIsPlaying(false);
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -187,7 +212,7 @@ export default function VideoPlayer({ movie }) {
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleTimeUpdate}
         onClick={handleCenterClick}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={handleVideoEnded}
         playsInline
         className="w-full h-full object-contain bg-black cursor-pointer"
       />
@@ -220,14 +245,43 @@ export default function VideoPlayer({ movie }) {
 
         <div className="text-center px-2">
           <h2 className="text-sm sm:text-base font-extrabold font-heading text-white truncate max-w-[200px] sm:max-w-md">
-            {movie?.title}
+            {movie?.title} <span className="text-[#E50914] ml-1">(Part {currentPartIndex + 1})</span>
           </h2>
           <span className="text-[10px] text-gray-400 font-mono">Tap center to play / stop</span>
         </div>
 
-        <span className="px-2.5 py-1 text-xs font-bold bg-[#E50914] text-white rounded-md glow-red">
-          1080p HD
-        </span>
+        {/* Multi-Part Switcher Button */}
+        <div className="relative">
+          <button
+            onClick={() => setShowPartsMenu(!showPartsMenu)}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-[#E50914] text-white rounded-lg glow-red hover:bg-[#FF1E27] transition-all"
+          >
+            <ListVideo className="w-4 h-4" />
+            <span className="hidden sm:inline">Parts ({currentPartIndex + 1}/{parts.length})</span>
+          </button>
+
+          {showPartsMenu && (
+            <div className="absolute right-0 top-10 w-56 p-2 rounded-xl glass-panel border border-white/10 shadow-2xl space-y-1 z-40 max-h-64 overflow-y-auto">
+              <span className="block px-2 py-1 text-[10px] font-black uppercase text-gray-400 border-b border-white/10 mb-1">
+                Select Movie Part
+              </span>
+              {parts.map((p, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => switchPart(idx)}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition-all ${
+                    currentPartIndex === idx
+                      ? 'bg-[#E50914] text-white font-bold glow-red'
+                      : 'text-gray-300 hover:bg-white/10'
+                  }`}
+                >
+                  <span className="truncate">{p.title}</span>
+                  <span className="text-[10px] opacity-75">{p.size}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Ultra Clean Bottom Controls Bar */}
