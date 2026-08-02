@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Flame, Sparkles, Film, ArrowRight, Download, Shield, Play } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Flame, Sparkles, Film, ArrowRight, Download } from 'lucide-react';
 import { useCatalog } from '../context/CatalogContext';
 import HeroBanner from '../components/Movies/HeroBanner';
 import MovieGrid from '../components/Movies/MovieGrid';
@@ -10,8 +9,7 @@ import DownloadModal from '../components/Download/DownloadModal';
 import TrailerModal from '../components/Common/TrailerModal';
 
 export default function HomePage() {
-  const navigate = useNavigate();
-  const { movies, featuredMovie, trendingMovies, latestMovies, genresList, loading } = useCatalog();
+  const { movies, featuredMovie, trendingMovies, genresList, loading } = useCatalog();
 
   const [downloadModalMovie, setDownloadModalMovie] = useState(null);
   const [trailerModalMovie, setTrailerModalMovie] = useState(null);

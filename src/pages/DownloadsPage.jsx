@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Download, CheckCircle2 } from 'lucide-react';
 import { useDownloads } from '../context/DownloadContext';
 import DownloadProgressCard from '../components/Download/DownloadProgressCard';
 import EmptyState from '../components/Common/EmptyState';

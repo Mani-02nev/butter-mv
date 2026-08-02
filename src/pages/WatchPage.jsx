@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import VideoPlayer from '../components/Player/VideoPlayer';
 import MovieGrid from '../components/Movies/MovieGrid';
 import DownloadModal from '../components/Download/DownloadModal';
 import EmptyState from '../components/Common/EmptyState';
-import { Download, Heart, Share2, Star } from 'lucide-react';
+import { Download, Heart } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 
 export default function WatchPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { getMovieById, getRelatedMovies, loading } = useCatalog();
   const { isFavorite, toggleFavorite } = useFavorites();
 

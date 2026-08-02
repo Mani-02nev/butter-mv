@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Film, SlidersHorizontal } from 'lucide-react';
 import { useCatalog } from '../context/CatalogContext';
 import FilterPanel from '../components/Movies/FilterPanel';
 import MovieGrid from '../components/Movies/MovieGrid';

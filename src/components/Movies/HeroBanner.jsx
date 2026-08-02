@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Play, Download, Star, Info, Flame, Sparkles, Volume2, ShieldCheck } from 'lucide-react';
+import { Play, Download, Star, Info, Flame, Volume2 } from 'lucide-react';
 import { HeroBannerSkeleton } from '../Common/Skeleton';
 
 export default function HeroBanner({ movie, onOpenDownload, onOpenTrailer, loading }) {

@@ -90,6 +90,7 @@ export default function VideoPlayer({ movie }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- togglePlay/toggleFullscreen read videoRef directly; toggleMute's only state dependency (isMuted) is already listed
   }, [isPlaying, isMuted, isFullscreen]);
 
   // Fullscreen listener
@@ -266,31 +267,31 @@ export default function VideoPlayer({ movie }) {
       >
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-gray-300 hover:text-white bg-black/60 hover:bg-black/90 px-3.5 py-1.5 rounded-xl backdrop-blur-md border border-white/10 transition-colors text-xs sm:text-sm font-semibold"
+          className="flex items-center gap-1.5 text-gray-300 hover:text-white bg-black/60 hover:bg-black/90 active:bg-black px-3 py-2 sm:px-3.5 sm:py-1.5 rounded-xl backdrop-blur-md border border-white/10 transition-colors text-xs sm:text-sm font-semibold shrink-0"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
+          <span className="hidden min-[380px]:inline">Back</span>
         </button>
 
-        <div className="text-center px-2">
-          <h2 className="text-sm sm:text-base font-extrabold font-heading text-white truncate max-w-[200px] sm:max-w-md">
+        <div className="text-center px-1 sm:px-2 min-w-0">
+          <h2 className="text-xs sm:text-base font-extrabold font-heading text-white truncate max-w-[120px] min-[380px]:max-w-[160px] sm:max-w-md">
             {movie?.title} <span className="text-[#E50914] ml-1">(Part {currentPartIndex + 1})</span>
           </h2>
-          <span className="text-[10px] text-gray-400 font-mono">Tap center to play / stop</span>
+          <span className="hidden sm:inline text-[10px] text-gray-400 font-mono">Tap center to play / stop</span>
         </div>
 
         {/* Multi-Part Switcher Button */}
-        <div className="relative">
+        <div className="relative shrink-0">
           <button
             onClick={() => setShowPartsMenu(!showPartsMenu)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-[#E50914] text-white rounded-lg glow-red hover:bg-[#FF1E27] transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-2 sm:px-3 sm:py-1.5 text-xs font-bold bg-[#E50914] text-white rounded-lg glow-red hover:bg-[#FF1E27] active:bg-[#c40810] transition-all"
           >
             <ListVideo className="w-4 h-4" />
             <span className="hidden sm:inline">Parts ({currentPartIndex + 1}/{parts.length})</span>
           </button>
 
           {showPartsMenu && (
-            <div className="absolute right-0 top-10 w-56 p-2 rounded-xl glass-panel border border-white/10 shadow-2xl space-y-1 z-40 max-h-64 overflow-y-auto">
+            <div className="absolute right-0 top-11 sm:top-10 w-[70vw] max-w-64 sm:w-56 p-2 rounded-xl glass-panel border border-white/10 shadow-2xl space-y-1 z-40 max-h-[50vh] sm:max-h-64 overflow-y-auto">
               <span className="block px-2 py-1 text-[10px] font-black uppercase text-gray-400 border-b border-white/10 mb-1">
                 Select Movie Part
               </span>
@@ -298,14 +299,14 @@ export default function VideoPlayer({ movie }) {
                 <button
                   key={idx}
                   onClick={() => switchPart(idx)}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition-all ${
+                  className={`w-full flex items-center justify-between px-3 py-2.5 sm:py-2 text-xs rounded-lg transition-all ${
                     currentPartIndex === idx
                       ? 'bg-[#E50914] text-white font-bold glow-red'
-                      : 'text-gray-300 hover:bg-white/10'
+                      : 'text-gray-300 hover:bg-white/10 active:bg-white/20'
                   }`}
                 >
                   <span className="truncate">{p.title}</span>
-                  <span className="text-[10px] opacity-75">{p.size}</span>
+                  {p.size && <span className="text-[10px] opacity-75 shrink-0 ml-2">{p.size}</span>}
                 </button>
               ))}
             </div>
@@ -319,24 +320,24 @@ export default function VideoPlayer({ movie }) {
           showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
-        {/* Seek Progress Bar */}
-        <div className="relative flex items-center">
+        {/* Seek Progress Bar (extra vertical padding widens the touch hit area) */}
+        <div className="relative flex items-center py-2 -my-2">
           <input
             type="range"
             min={0}
             max={duration || 100}
             value={currentTime}
             onChange={handleSeekChange}
-            className="w-full h-1.5 bg-white/20 hover:h-2.5 rounded-lg appearance-none cursor-pointer accent-[#E50914] transition-all"
+            className="w-full h-2 sm:h-1.5 sm:hover:h-2.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#E50914] transition-all"
           />
         </div>
 
         {/* Clean Controls Row */}
-        <div className="flex items-center justify-between text-white">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between text-white gap-2">
+          <div className="flex items-center gap-1 sm:gap-3 min-w-0">
             <button
               onClick={handleCenterClick}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="p-2.5 sm:p-2 hover:bg-white/10 active:bg-white/20 rounded-full transition-colors shrink-0"
               title={isPlaying ? 'Stop / Pause' : 'Play'}
             >
               {isPlaying ? (
@@ -347,8 +348,8 @@ export default function VideoPlayer({ movie }) {
             </button>
 
             {/* Mute & Volume */}
-            <div className="flex items-center gap-2">
-              <button onClick={toggleMute} className="p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              <button onClick={toggleMute} className="p-2.5 sm:p-2 text-gray-300 hover:text-white hover:bg-white/10 active:bg-white/20 rounded-full transition-colors">
                 {isMuted || volume === 0 ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
               </button>
               <input
@@ -363,17 +364,17 @@ export default function VideoPlayer({ movie }) {
             </div>
 
             {/* Time Stamp */}
-            <div className="text-xs font-mono text-gray-300">
+            <div className="text-[11px] sm:text-xs font-mono text-gray-300 truncate">
               <span>{formatTime(currentTime)}</span>
               <span className="text-gray-500 mx-1">/</span>
               <span>{formatTime(duration)}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={toggleFullscreen}
-              className="p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+              className="p-2.5 sm:p-2 text-gray-300 hover:text-white hover:bg-white/10 active:bg-white/20 rounded-full transition-colors"
               title="Fullscreen"
             >
               {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}

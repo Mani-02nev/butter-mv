@@ -12,7 +12,6 @@ import {
   Users,
   Globe,
   Subtitles,
-  ShieldAlert,
   ArrowLeft,
 } from 'lucide-react';
 import { useCatalog } from '../context/CatalogContext';

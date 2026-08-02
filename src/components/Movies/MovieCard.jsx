@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Play, Download, Star, Heart, Clock } from 'lucide-react';
 import { useFavorites } from '../../context/FavoritesContext';
 
-export default function MovieCard({ movie, onOpenDownload, onOpenTrailer }) {
+export default function MovieCard({ movie, onOpenDownload }) {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorite = isFavorite(movie.id);
@@ -84,7 +84,11 @@ export default function MovieCard({ movie, onOpenDownload, onOpenTrailer }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onOpenDownload ? onOpenDownload(movie) : navigate(`/movie/${movie.id}`);
+                  if (onOpenDownload) {
+                    onOpenDownload(movie);
+                  } else {
+                    navigate(`/movie/${movie.id}`);
+                  }
                 }}
                 className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 transition-all"
                 title="Download"

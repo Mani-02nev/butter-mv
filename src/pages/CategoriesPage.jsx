@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Sparkles } from 'lucide-react';
+import { Grid } from 'lucide-react';
 import { useCatalog } from '../context/CatalogContext';
 import CategoryCard from '../components/Categories/CategoryCard';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import { SlidersHorizontal, RotateCcw } from 'lucide-react';
 
 export default function FilterPanel({
   selectedGenre,
