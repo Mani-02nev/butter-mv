@@ -10,6 +10,8 @@ import {
   ListVideo,
   RotateCcw,
   RotateCw,
+  X,
+  Check,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -341,38 +343,14 @@ export default function VideoPlayer({ movie }) {
           <span className="hidden sm:inline text-[10px] text-gray-400 font-mono">Tap center to play / stop</span>
         </div>
 
-        {/* Multi-Part Switcher Button */}
-        <div className="relative shrink-0">
-          <button
-            onClick={() => setShowPartsMenu(!showPartsMenu)}
-            className="flex items-center gap-1.5 px-2.5 py-2 sm:px-3 sm:py-1.5 text-xs font-bold bg-[#E50914] text-white rounded-lg glow-red hover:bg-[#FF1E27] active:bg-[#c40810] transition-all"
-          >
-            <ListVideo className="w-4 h-4" />
-            <span className="hidden sm:inline">Parts ({currentPartIndex + 1}/{parts.length})</span>
-          </button>
-
-          {showPartsMenu && (
-            <div className="absolute right-0 top-11 sm:top-10 w-[70vw] max-w-64 sm:w-56 p-2 rounded-xl glass-panel border border-white/10 shadow-2xl space-y-1 z-40 max-h-[50vh] sm:max-h-64 overflow-y-auto">
-              <span className="block px-2 py-1 text-[10px] font-black uppercase text-gray-400 border-b border-white/10 mb-1">
-                Select Movie Part
-              </span>
-              {parts.map((p, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => switchPart(idx)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 sm:py-2 text-xs rounded-lg transition-all ${
-                    currentPartIndex === idx
-                      ? 'bg-[#E50914] text-white font-bold glow-red'
-                      : 'text-gray-300 hover:bg-white/10 active:bg-white/20'
-                  }`}
-                >
-                  <span className="truncate">{p.title}</span>
-                  {p.size && <span className="text-[10px] opacity-75 shrink-0 ml-2">{p.size}</span>}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Multi-Part Switcher Button (opens the bottom sheet) */}
+        <button
+          onClick={() => setShowPartsMenu(true)}
+          className="flex items-center gap-1.5 px-2.5 py-2 sm:px-3 sm:py-1.5 text-xs font-bold bg-[#E50914] text-white rounded-lg glow-red hover:bg-[#FF1E27] active:bg-[#c40810] transition-all shrink-0"
+        >
+          <ListVideo className="w-4 h-4" />
+          <span className="hidden sm:inline">Parts ({currentPartIndex + 1}/{parts.length})</span>
+        </button>
       </div>
 
       {/* Ultra Clean Bottom Controls Bar */}
@@ -443,6 +421,77 @@ export default function VideoPlayer({ movie }) {
           </div>
         </div>
       </div>
+
+      {/* Parts Bottom Sheet (Hotstar-style) — fixed to the viewport so it works the same in and out of fullscreen */}
+      {showPartsMenu && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+            onClick={() => setShowPartsMenu(false)}
+          />
+          <div className="fixed inset-x-0 bottom-0 z-50 max-h-[75vh] flex flex-col rounded-t-3xl bg-[#0c0c14] border-t border-white/10 shadow-2xl animate-in slide-in-from-bottom duration-300">
+            {/* Drag Handle */}
+            <button
+              onClick={() => setShowPartsMenu(false)}
+              className="w-full flex flex-col items-center pt-3 pb-1 shrink-0"
+              title="Close"
+            >
+              <span className="w-10 h-1.5 rounded-full bg-white/25" />
+            </button>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 pb-3 border-b border-white/10 shrink-0">
+              <div>
+                <h3 className="text-base font-extrabold font-heading text-white">Select Part</h3>
+                <p className="text-[11px] text-gray-400">{movie?.title} • {parts.length} parts</p>
+              </div>
+              <button
+                onClick={() => setShowPartsMenu(false)}
+                className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Parts List */}
+            <div className="overflow-y-auto px-3 py-3 space-y-2">
+              {parts.map((p, idx) => {
+                const active = currentPartIndex === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => switchPart(idx)}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-all ${
+                      active
+                        ? 'bg-[#E50914]/15 border border-[#E50914]/50'
+                        : 'bg-white/5 border border-transparent hover:bg-white/10 active:bg-white/15'
+                    }`}
+                  >
+                    <span
+                      className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-xs font-black ${
+                        active ? 'bg-[#E50914] text-white glow-red' : 'bg-white/10 text-gray-300'
+                      }`}
+                    >
+                      {active ? <Check className="w-4 h-4" /> : p.part ?? idx + 1}
+                    </span>
+                    <div className="flex-1 min-w-0 text-left">
+                      <span className={`block text-sm font-semibold truncate ${active ? 'text-white' : 'text-gray-200'}`}>
+                        {p.title}
+                      </span>
+                      {p.size && <span className="text-[11px] text-gray-500">{p.size}</span>}
+                    </div>
+                    {active && (
+                      <span className="shrink-0 text-[10px] font-black uppercase text-[#E50914] tracking-wide">
+                        Now Playing
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
