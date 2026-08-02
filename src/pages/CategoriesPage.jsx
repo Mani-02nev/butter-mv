@@ -21,13 +21,13 @@ export default function CategoriesPage() {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="aspect-[16/9] rounded-2xl glass-panel animate-pulse" />
+            <div key={i} className="aspect-[4/3] sm:aspect-[16/9] rounded-2xl glass-panel animate-pulse" />
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {genresList.map((genre) => {
             const genreMovie = movies.find((m) => m.genres?.includes(genre));
             const count = movies.filter((m) => m.genres?.includes(genre)).length;
