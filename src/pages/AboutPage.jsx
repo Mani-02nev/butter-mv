@@ -7,11 +7,11 @@ export default function AboutPage() {
   const faqs = [
     {
       q: 'How does the dynamic catalog work on Butter MV?',
-      a: 'Butter MV automatically discovers locally available movies from the public JSON catalog (/catalog.json). Any new entry added to the catalog is instantly displayed with poster artwork, backdrops, and download links without code changes.',
+      a: 'Butter MV automatically discovers locally available movies from the public JSON catalog (/catalog.json). Any new entry added to the catalog is instantly displayed with poster artwork, backdrops, and streaming links without code changes.',
     },
     {
-      q: 'Can I download movies for offline viewing?',
-      a: 'Yes! Butter MV features a direct device download system supporting 1080p Full HD multi-part direct downloads with ultra-fast speed CDN mirrors.',
+      q: 'Can I stream movies without buffering?',
+      a: 'Yes! Butter MV streams directly from ultra-fast CDN mirrors in 1080p Full HD multi-part playback with near-instant start times.',
     },
     {
       q: 'What video quality formats are supported?',
@@ -35,7 +35,7 @@ export default function AboutPage() {
           About <span className="text-[#E50914]">Butter MV</span>
         </h1>
         <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          Butter MV is an ultra-premium, dark-themed OTT movie streaming and instant download web platform engineered for cinema purists.
+          Butter MV is an ultra-premium, dark-themed OTT movie streaming web platform engineered for cinema purists.
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
             </div>
 
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans max-w-2xl">
-              "Crafted with passion for cinema enthusiasts worldwide. Butter MV was created to deliver an ultra-fast, dark-themed OTT experience with instant direct downloads, 1080p video streams, and responsive mobile perfection."
+              "Crafted with passion for cinema enthusiasts worldwide. Butter MV was created to deliver an ultra-fast, dark-themed OTT experience with instant 1080p video streams and responsive mobile perfection."
             </p>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
@@ -97,7 +97,7 @@ export default function AboutPage() {
         {[
           { label: 'Streaming Quality', val: '1080p HD' },
           { label: 'Buffering Speed', val: '0.1s' },
-          { label: 'Download Speeds', val: '50 MB/s' },
+          { label: 'CDN Response', val: '50 MB/s' },
           { label: 'Frame Rate', val: '60 FPS' },
         ].map((stat, i) => (
           <div key={i} className="p-6 rounded-2xl glass-panel border border-white/10 text-center space-y-1">
@@ -135,9 +135,9 @@ export default function AboutPage() {
           <div className="p-3 bg-[#E50914]/20 text-[#E50914] w-fit rounded-xl border border-[#E50914]/30">
             <Shield className="w-6 h-6" />
           </div>
-          <h3 className="text-xl font-bold font-heading text-white">Direct Device Downloads</h3>
+          <h3 className="text-xl font-bold font-heading text-white">Multi-Audio Streaming</h3>
           <p className="text-xs text-gray-400 leading-relaxed">
-            Direct browser native file downloads supporting 1080p multi-part files with multi-audio.
+            Stream 1080p multi-part files instantly with native multi-audio track support.
           </p>
         </div>
       </div>

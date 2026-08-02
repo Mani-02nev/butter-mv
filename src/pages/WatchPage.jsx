@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import VideoPlayer from '../components/Player/VideoPlayer';
 import MovieGrid from '../components/Movies/MovieGrid';
-import DownloadModal from '../components/Download/DownloadModal';
 import EmptyState from '../components/Common/EmptyState';
-import { Download, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 
 export default function WatchPage() {
@@ -16,8 +15,6 @@ export default function WatchPage() {
   const movie = getMovieById(id);
   const relatedMovies = getRelatedMovies(movie, 4);
   const favorite = movie ? isFavorite(movie.id) : false;
-
-  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
 
   if (loading) {
     return (
@@ -73,14 +70,6 @@ export default function WatchPage() {
               <Heart className={`w-4 h-4 ${favorite ? 'fill-white' : ''}`} />
               <span>{favorite ? 'Watchlisted' : 'Add to Watchlist'}</span>
             </button>
-
-            <button
-              onClick={() => setDownloadModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold rounded-xl transition-all"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download 4K</span>
-            </button>
           </div>
         </div>
 
@@ -96,13 +85,6 @@ export default function WatchPage() {
           <MovieGrid movies={relatedMovies} loading={false} />
         </div>
       )}
-
-      {/* Download Modal */}
-      <DownloadModal
-        isOpen={downloadModalOpen}
-        onClose={() => setDownloadModalOpen(false)}
-        movie={movie}
-      />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-              Butter MV is an ultra-premium, dark-themed streaming and instant movie download web platform designed for cinema lovers worldwide. Stream in crisp 1080p HD or download multi-part files for offline viewing.
+              Butter MV is an ultra-premium, dark-themed streaming web platform designed for cinema lovers worldwide. Stream in crisp 1080p HD, multi-part playback with zero buffering.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a href="#" className="p-2.5 bg-white/5 hover:bg-[#E50914] text-gray-300 hover:text-white rounded-full transition-all border border-white/10" title="Global Network">
@@ -52,7 +52,6 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold font-heading mb-4 text-base tracking-wide">Platform Features</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link to="/downloads" className="hover:text-white transition-colors">Offline Downloads</Link></li>
               <li><span className="text-gray-500">1080p HD Multi-Part Playback</span></li>
               <li><span className="text-gray-500">Multi-Audio Subtitles</span></li>
               <li><span className="text-gray-500">GitHub Compliant Mirroring</span></li>

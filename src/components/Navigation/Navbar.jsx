@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Play, Search, Heart, Download, Menu, X, Film, Sparkles, Home, Grid } from 'lucide-react';
+import { Play, Search, Heart, Menu, X, Film, Sparkles, Home, Grid } from 'lucide-react';
 import { useFavorites } from '../../context/FavoritesContext';
-import { useDownloads } from '../../context/DownloadContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { favoritesCount } = useFavorites();
-  const { activeCount } = useDownloads();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,19 +87,6 @@ export default function Navbar() {
               {favoritesCount > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 bg-[#E50914] text-white text-[10px] font-extrabold rounded-full flex items-center justify-center glow-red">
                   {favoritesCount}
-                </span>
-              )}
-            </Link>
-
-            <Link
-              to="/downloads"
-              className="p-2.5 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-colors relative"
-              title="Device Downloads"
-            >
-              <Download className="w-5 h-5" />
-              {activeCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-green-500 text-white text-[10px] font-extrabold rounded-full flex items-center justify-center animate-pulse">
-                  {activeCount}
                 </span>
               )}
             </Link>

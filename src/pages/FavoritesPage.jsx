@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Heart } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 import MovieGrid from '../components/Movies/MovieGrid';
-import DownloadModal from '../components/Download/DownloadModal';
 import EmptyState from '../components/Common/EmptyState';
 
 export default function FavoritesPage() {
   const { favorites } = useFavorites();
-  const [downloadModalMovie, setDownloadModalMovie] = useState(null);
 
   return (
     <div className="space-y-8 pb-12 pt-4">
@@ -19,7 +17,7 @@ export default function FavoritesPage() {
           </h1>
         </div>
         <p className="text-sm text-gray-400">
-          Saved movies to watch later or download for offline viewing
+          Saved movies to watch later
         </p>
       </div>
 
@@ -32,18 +30,8 @@ export default function FavoritesPage() {
           actionLink="/movies"
         />
       ) : (
-        <MovieGrid
-          movies={favorites}
-          loading={false}
-          onOpenDownload={(m) => setDownloadModalMovie(m)}
-        />
+        <MovieGrid movies={favorites} loading={false} />
       )}
-
-      <DownloadModal
-        isOpen={Boolean(downloadModalMovie)}
-        onClose={() => setDownloadModalMovie(null)}
-        movie={downloadModalMovie}
-      />
     </div>
   );
 }

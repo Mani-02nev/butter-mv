@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Play, Download, Star, Heart, Clock } from 'lucide-react';
+import { Play, Star, Heart, Clock } from 'lucide-react';
 import { useFavorites } from '../../context/FavoritesContext';
 
-export default function MovieCard({ movie, onOpenDownload }) {
+export default function MovieCard({ movie }) {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorite = isFavorite(movie.id);
@@ -79,21 +79,6 @@ export default function MovieCard({ movie, onOpenDownload }) {
               >
                 <Play className="w-3.5 h-3.5 fill-white" />
                 <span>Play</span>
-              </button>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (onOpenDownload) {
-                    onOpenDownload(movie);
-                  } else {
-                    navigate(`/movie/${movie.id}`);
-                  }
-                }}
-                className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 transition-all"
-                title="Download"
-              >
-                <Download className="w-4 h-4" />
               </button>
             </div>
           </div>

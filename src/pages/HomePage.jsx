@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Flame, Sparkles, Film, ArrowRight, Download } from 'lucide-react';
+import { Flame, Sparkles, Film, ArrowRight, Play } from 'lucide-react';
 import { useCatalog } from '../context/CatalogContext';
 import HeroBanner from '../components/Movies/HeroBanner';
 import MovieGrid from '../components/Movies/MovieGrid';
 import CategoryCard from '../components/Categories/CategoryCard';
-import DownloadModal from '../components/Download/DownloadModal';
 import TrailerModal from '../components/Common/TrailerModal';
 
 export default function HomePage() {
   const { movies, featuredMovie, trendingMovies, genresList, loading } = useCatalog();
 
-  const [downloadModalMovie, setDownloadModalMovie] = useState(null);
   const [trailerModalMovie, setTrailerModalMovie] = useState(null);
 
   const topRatedMovies = [...movies].sort((a, b) => b.imdbRating - a.imdbRating).slice(0, 5);
@@ -22,7 +20,6 @@ export default function HomePage() {
       <HeroBanner
         movie={featuredMovie}
         loading={loading}
-        onOpenDownload={(m) => setDownloadModalMovie(m)}
         onOpenTrailer={(m) => setTrailerModalMovie(m)}
       />
 
@@ -51,7 +48,6 @@ export default function HomePage() {
         <MovieGrid
           movies={trendingMovies}
           loading={loading}
-          onOpenDownload={(m) => setDownloadModalMovie(m)}
           onOpenTrailer={(m) => setTrailerModalMovie(m)}
         />
       </section>
@@ -111,43 +107,37 @@ export default function HomePage() {
         <MovieGrid
           movies={topRatedMovies}
           loading={loading}
-          onOpenDownload={(m) => setDownloadModalMovie(m)}
           onOpenTrailer={(m) => setTrailerModalMovie(m)}
         />
       </section>
 
-      {/* Download CTA Banner */}
+      {/* Streaming CTA Banner */}
       <section className="relative rounded-3xl overflow-hidden glass-panel border border-[#E50914]/40 p-8 sm:p-12 shadow-2xl bg-gradient-to-r from-[#050505] via-[#12121c] to-[#050505]">
         <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#E50914]/20 via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 max-w-2xl space-y-4">
           <span className="px-3 py-1 bg-[#E50914] text-white text-xs font-black uppercase tracking-wider rounded-lg shadow-lg glow-red">
-            OFFLINE STREAMING
+            INSTANT STREAMING
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-white leading-tight">
-            Download Your Favorite Movies in 4K UHD
+            Watch Your Favorite Movies in 4K UHD
           </h2>
           <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-            Watch anytime, anywhere with zero buffering. Choose between multiple resolution presets (480p to 4K UHD) with superfast CDN mirrors.
+            Stream anytime, anywhere with zero buffering. Crisp resolution presets (480p to 4K UHD) with superfast CDN mirrors.
           </p>
           <div className="flex flex-wrap gap-4 pt-2">
             <Link
               to="/movies"
               className="flex items-center gap-2 px-6 py-3 bg-[#E50914] hover:bg-[#FF1E27] text-white font-bold rounded-xl transition-all glow-red shadow-lg"
             >
-              <Download className="w-4 h-4" />
-              <span>Explore Catalog Downloads</span>
+              <Play className="w-4 h-4 fill-white" />
+              <span>Explore Full Catalog</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Download & Trailer Modals */}
-      <DownloadModal
-        isOpen={Boolean(downloadModalMovie)}
-        onClose={() => setDownloadModalMovie(null)}
-        movie={downloadModalMovie}
-      />
+      {/* Trailer Modal */}
       <TrailerModal
         isOpen={Boolean(trailerModalMovie)}
         onClose={() => setTrailerModalMovie(null)}

@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import FilterPanel from '../components/Movies/FilterPanel';
 import MovieGrid from '../components/Movies/MovieGrid';
-import DownloadModal from '../components/Download/DownloadModal';
 import TrailerModal from '../components/Common/TrailerModal';
 
 export default function MoviesPage() {
@@ -15,7 +14,6 @@ export default function MoviesPage() {
   const [selectedQuality, setSelectedQuality] = useState('All');
   const [sortBy, setSortBy] = useState('popular');
 
-  const [downloadModalMovie, setDownloadModalMovie] = useState(null);
   const [trailerModalMovie, setTrailerModalMovie] = useState(null);
 
   // Sync state with URL params
@@ -86,7 +84,7 @@ export default function MoviesPage() {
             Movies Catalog
           </h1>
           <p className="text-sm text-gray-400 mt-1">
-            Browse our full library of 4K UHD streaming and download releases
+            Browse our full library of 4K UHD streaming releases
           </p>
         </div>
         <div className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-gray-300 self-start sm:self-auto">
@@ -113,17 +111,11 @@ export default function MoviesPage() {
       <MovieGrid
         movies={filteredMovies}
         loading={loading}
-        onOpenDownload={(m) => setDownloadModalMovie(m)}
         onOpenTrailer={(m) => setTrailerModalMovie(m)}
         emptyMessage="No movies found matching your selected filters."
       />
 
       {/* Modals */}
-      <DownloadModal
-        isOpen={Boolean(downloadModalMovie)}
-        onClose={() => setDownloadModalMovie(null)}
-        movie={downloadModalMovie}
-      />
       <TrailerModal
         isOpen={Boolean(trailerModalMovie)}
         onClose={() => setTrailerModalMovie(null)}

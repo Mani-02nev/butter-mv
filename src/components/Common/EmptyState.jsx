@@ -1,5 +1,5 @@
 import React from 'react';
-import { Film, Search, Heart, Download } from 'lucide-react';
+import { Film, Search, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function EmptyState({ icon = 'film', title, description, actionText, actionLink }) {
@@ -9,8 +9,6 @@ export default function EmptyState({ icon = 'film', title, description, actionTe
         return <Search className="w-12 h-12 text-[#E50914]" />;
       case 'heart':
         return <Heart className="w-12 h-12 text-[#E50914]" />;
-      case 'download':
-        return <Download className="w-12 h-12 text-[#E50914]" />;
       default:
         return <Film className="w-12 h-12 text-[#E50914]" />;
     }

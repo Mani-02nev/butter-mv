@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, Download, Star, Info, Flame, Volume2 } from 'lucide-react';
+import { Play, Star, Info, Flame, Volume2 } from 'lucide-react';
 import { HeroBannerSkeleton } from '../Common/Skeleton';
 
-export default function HeroBanner({ movie, onOpenDownload, onOpenTrailer, loading }) {
+export default function HeroBanner({ movie, onOpenTrailer, loading }) {
   const navigate = useNavigate();
 
   if (loading || !movie) {
@@ -79,14 +79,6 @@ export default function HeroBanner({ movie, onOpenDownload, onOpenTrailer, loadi
           >
             <Play className="w-5 h-5 fill-white" />
             <span>Watch Online</span>
-          </button>
-
-          <button
-            onClick={() => onOpenDownload ? onOpenDownload(movie) : navigate(`/movie/${movie.id}`)}
-            className="flex items-center gap-2.5 px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-base rounded-2xl backdrop-blur-md border border-white/20 transition-all hover:scale-105"
-          >
-            <Download className="w-5 h-5" />
-            <span>Download 4K</span>
           </button>
 
           <button

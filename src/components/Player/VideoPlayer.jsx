@@ -8,6 +8,8 @@ import {
   Minimize,
   ArrowLeft,
   ListVideo,
+  RotateCcw,
+  RotateCw,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -83,6 +85,14 @@ export default function VideoPlayer({ movie }) {
           e.preventDefault();
           toggleMute();
           break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          skipTime(-10);
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          skipTime(10);
+          break;
         default:
           break;
       }
@@ -134,6 +144,14 @@ export default function VideoPlayer({ movie }) {
   // Center Screen Click to Toggle Play/Pause cleanly
   const handleCenterClick = () => {
     togglePlay();
+    handleUserActivity();
+  };
+
+  const skipTime = (delta) => {
+    if (!videoRef.current) return;
+    const max = videoRef.current.duration || duration || Infinity;
+    videoRef.current.currentTime = Math.min(Math.max(videoRef.current.currentTime + delta, 0), max);
+    setCurrentTime(videoRef.current.currentTime);
     handleUserActivity();
   };
 
@@ -247,15 +265,58 @@ export default function VideoPlayer({ movie }) {
         </div>
       )}
 
-      {/* Static Center Play Icon when Paused */}
+      {/* Dim wash behind the center cluster while paused (clicks pass through to the video) */}
       {!isPlaying && !videoError && (
-        <div
-          onClick={handleCenterClick}
-          className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer z-10"
-        >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-2xl glow-red hover:scale-110 transition-transform">
-            <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-white ml-1" />
-          </div>
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] z-[5] pointer-events-none transition-opacity duration-300" />
+      )}
+
+      {/* Center Controls Cluster: Rewind 10s / Play-Pause / Forward 10s.
+          Only mounted while paused — disappears the instant playback starts,
+          so it never lingers over the video during normal viewing. */}
+      {!isPlaying && !videoError && (
+        <div className="absolute inset-0 flex items-center justify-center gap-5 sm:gap-8 z-10 animate-in fade-in duration-200">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              skipTime(-10);
+            }}
+            className="relative p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/70 active:bg-black/90 text-white backdrop-blur-md border border-white/10 shadow-xl transition-all hover:scale-110 active:scale-95"
+            title="Rewind 10 seconds"
+          >
+            <RotateCcw className="w-6 h-6 sm:w-7 sm:h-7" />
+            <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-black pt-px pointer-events-none">
+              10
+            </span>
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCenterClick();
+            }}
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-2xl glow-red hover:scale-110 active:scale-95 transition-transform"
+            title={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isPlaying ? (
+              <Pause className="w-8 h-8 sm:w-10 sm:h-10 fill-white" />
+            ) : (
+              <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-white ml-1" />
+            )}
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              skipTime(10);
+            }}
+            className="relative p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/70 active:bg-black/90 text-white backdrop-blur-md border border-white/10 shadow-xl transition-all hover:scale-110 active:scale-95"
+            title="Forward 10 seconds"
+          >
+            <RotateCw className="w-6 h-6 sm:w-7 sm:h-7" />
+            <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-black pt-px pointer-events-none">
+              10
+            </span>
+          </button>
         </div>
       )}
 

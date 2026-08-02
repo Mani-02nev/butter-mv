@@ -4,7 +4,6 @@ import { useCatalog } from '../context/CatalogContext';
 import SearchBar from '../components/Search/SearchBar';
 import MovieGrid from '../components/Movies/MovieGrid';
 import FilterPanel from '../components/Movies/FilterPanel';
-import DownloadModal from '../components/Download/DownloadModal';
 import TrailerModal from '../components/Common/TrailerModal';
 
 export default function SearchPage() {
@@ -16,7 +15,6 @@ export default function SearchPage() {
   const [selectedQuality, setSelectedQuality] = useState('All');
   const [sortBy, setSortBy] = useState('popular');
 
-  const [downloadModalMovie, setDownloadModalMovie] = useState(null);
   const [trailerModalMovie, setTrailerModalMovie] = useState(null);
 
   const handleReset = () => {
@@ -127,7 +125,6 @@ export default function SearchPage() {
       <MovieGrid
         movies={filteredMovies}
         loading={loading}
-        onOpenDownload={(m) => setDownloadModalMovie(m)}
         onOpenTrailer={(m) => setTrailerModalMovie(m)}
         emptyMessage={
           query
@@ -137,11 +134,6 @@ export default function SearchPage() {
       />
 
       {/* Modals */}
-      <DownloadModal
-        isOpen={Boolean(downloadModalMovie)}
-        onClose={() => setDownloadModalMovie(null)}
-        movie={downloadModalMovie}
-      />
       <TrailerModal
         isOpen={Boolean(trailerModalMovie)}
         onClose={() => setTrailerModalMovie(null)}

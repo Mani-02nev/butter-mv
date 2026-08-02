@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { CatalogProvider } from './context/CatalogContext';
 import { FavoritesProvider } from './context/FavoritesContext';
-import { DownloadProvider } from './context/DownloadContext';
 import AppRoutes from './routes/AppRoutes';
 
 export default function App() {
@@ -10,9 +9,7 @@ export default function App() {
     <BrowserRouter>
       <CatalogProvider>
         <FavoritesProvider>
-          <DownloadProvider>
-            <AppRoutes />
-          </DownloadProvider>
+          <AppRoutes />
         </FavoritesProvider>
       </CatalogProvider>
     </BrowserRouter>

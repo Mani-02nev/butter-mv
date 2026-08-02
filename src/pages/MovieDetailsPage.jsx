@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Play,
-  Download,
   Star,
   Heart,
   Clock,
@@ -17,7 +16,6 @@ import {
 import { useCatalog } from '../context/CatalogContext';
 import { useFavorites } from '../context/FavoritesContext';
 import MovieGrid from '../components/Movies/MovieGrid';
-import DownloadModal from '../components/Download/DownloadModal';
 import TrailerModal from '../components/Common/TrailerModal';
 import EmptyState from '../components/Common/EmptyState';
 
@@ -31,7 +29,6 @@ export default function MovieDetailsPage() {
   const relatedMovies = getRelatedMovies(movie, 5);
   const favorite = movie ? isFavorite(movie.id) : false;
 
-  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [trailerModalOpen, setTrailerModalOpen] = useState(false);
 
   if (loading) {
@@ -159,14 +156,6 @@ export default function MovieDetailsPage() {
               </button>
 
               <button
-                onClick={() => setDownloadModalOpen(true)}
-                className="flex items-center gap-2.5 px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-base rounded-2xl backdrop-blur-md border border-white/20 transition-all hover:scale-105"
-              >
-                <Download className="w-5 h-5" />
-                <span>Download Movie</span>
-              </button>
-
-              <button
                 onClick={() => setTrailerModalOpen(true)}
                 className="px-5 py-3.5 bg-black/40 hover:bg-black/70 text-gray-300 hover:text-white font-medium text-sm rounded-2xl border border-white/10 transition-all"
               >
@@ -247,11 +236,6 @@ export default function MovieDetailsPage() {
       )}
 
       {/* Modals */}
-      <DownloadModal
-        isOpen={downloadModalOpen}
-        onClose={() => setDownloadModalOpen(false)}
-        movie={movie}
-      />
       <TrailerModal
         isOpen={trailerModalOpen}
         onClose={() => setTrailerModalOpen(false)}
