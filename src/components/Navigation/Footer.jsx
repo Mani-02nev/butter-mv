@@ -73,7 +73,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
           <p>© {new Date().getFullYear()} Butter MV Inc. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Crafted with <Heart className="w-3.5 h-3.5 text-[#E50914] fill-[#E50914]" /> for cinema enthusiasts by <span className="text-white font-bold">Black</span> (Founder of Butter MV).
+            Crafted with <Heart className="w-3.5 h-3.5 text-[#E50914] fill-[#E50914]" /> for cinema enthusiasts by <span className="text-white font-bold">Mr K</span> (Founder &amp; CEO, Butter MV).
           </p>
         </div>
       </div>
